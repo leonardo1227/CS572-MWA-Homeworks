@@ -1,0 +1,13 @@
+Student: Leonardo Samuel Tolosa Contreras
+Student ID: 986527
+
+1.Explain why do we want somentimes to use setImmediate instead of using setTimeout?
+Because sometimes we need to give higher priority to some callbacks. Then a function that is scheduled with setImmediate will be executed on the check phase of the event loop, 
+and that will be executed before functions that are scheduled with setTimeout. setTimeout schedules functions to be executed on the timers phase of the event loop.
+
+2.Explain the difference between process.nextTick and setImmediate?
+process.nextTick has the highest priority to be executed and it is not part of the event loop. After the current operation completes process.nextTick blocks the event loop to continue
+and executes the processes that are in the nextTick queue, after all the processes that were in the nextTick queue being completed the flow goes back to the event loop. 
+
+3. Name 10 core modules that Node provides by default.
+assert, http, https, crypto, dns, fs, net, os, querystring, and vm.
