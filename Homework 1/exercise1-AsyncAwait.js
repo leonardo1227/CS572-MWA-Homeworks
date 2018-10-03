@@ -1,7 +1,7 @@
 //Student: Leonardo Samuel Tolosa Contreras
 //Student ID: 986527
 //Course: CS572-Modern Web Applications (MUM)
-//Assignment 1
+//Assignment 1 (Async & Await)
 
 function filterNumbersPromise(numbers){
     return new Promise((resolve,reject) => {

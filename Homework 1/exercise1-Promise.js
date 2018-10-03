@@ -1,7 +1,7 @@
 //Student: Leonardo Samuel Tolosa Contreras
 //Student ID: 986527
 //Course: CS572-Modern Web Applications (MUM)
-//Assignment 1
+//Assignment 1 (Promise)
 
 Array.prototype.removeDuplicates = function(){
     let numbers = this;
