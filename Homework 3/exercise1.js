@@ -38,19 +38,31 @@ const resolveAddressAsyncAwait = async function(address){
 
 
 //4
-// function resolverAddressObservable(address){
-//     setTimeout(()=>{
-        
-//     },1000);
-// }
+function resolverAddressObservable(address){
+    resolveAddressAsyncAwait(mumAddress)
+        .then((data)=>{
+            subject.next({address:address,
+                            ip:data});
+        })
+        .catch(err =>{
+            console.error(err);
+        });
+}
+
+subject.subscribe((data)=>{
+    console.log('4.ADDRESS: '+data.address);
+    console.log('- '+data.ip);
+});
+
 
 
 
 //---------------------------------------------------------------------------------
 console.log('Start');
-
+//1.Calling
 resolveAddress(mumAddress);
 
+//2.Calling
 resolveAddressPromise(mumAddress)
     .then((data)=>{
         console.log('2.ADDRESS: '+mumAddress);
@@ -60,6 +72,7 @@ resolveAddressPromise(mumAddress)
         console.error(err);
     });
 
+//3.Calling
 resolveAddressAsyncAwait(mumAddress)
     .then((data)=>{
         console.log('3.ADDRESS: '+mumAddress);
@@ -68,5 +81,8 @@ resolveAddressAsyncAwait(mumAddress)
     .catch(err => {
         console.error(err);
     });
+
+//4.Calling
+resolverAddressObservable(mumAddress);
 
 console.log('Finish');
