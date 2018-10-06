@@ -1,0 +1,18 @@
+{
+  "name": "homework-4",
+  "version": "1.0.0",
+  "description": "4th assignament of CS572-MWA Course at MUM in October of 2018",
+  "main": "exercise1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leonardo1227/CS572-MWA-Homeworks/tree/master/Homework%204"
+  },
+  "author": "Leonardo Samuel Tolosa Contreras",
+  "license": "ISC",
+  "dependencies": {
+    "rxjs": "^6.3.3"
+  }
+}
