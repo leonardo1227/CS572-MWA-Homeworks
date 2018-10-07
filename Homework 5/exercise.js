@@ -47,7 +47,7 @@ const writesResponse = (data => {
 });
 
 
-
+//===================================================================================================================================================
 //Server 1
 initialServerConfiguration(app1,1000);
 
@@ -64,9 +64,10 @@ app1.get(urlUserRequests, (request,response) =>{
                 error:err});
         });
 });
-
+//==================================================================================================================================================
 //Server 2
 initialServerConfiguration(app2,2000);
+
 app2.get(urlUserRequests, (request,response) =>{
     subject.next({request:request,
         response:response});
@@ -89,11 +90,33 @@ const writesResponseObservable = (data) =>{
 
 subject.subscribe(writesResponseObservable);
 
-
+//===================================================================================================================================================
 //Server 3
 initialServerConfiguration(app3,3000);
 
+app3.get(urlUserRequests, (request,response) =>{
+    writesResponseAsyncAwait()
+        .then(data =>{
+            writesResponse({resquest:request,
+                response:response,
+                fetchedData:data.data});
+        })
+        .catch(err =>{
+            writesResponse({resquest:request,
+                response:response,
+                error:err});
+        });
+});
 
+const writesResponseAsyncAwait = async function () {
+    try{
+        return promiseExternalDataRequest(urlToFetchData);
+    }catch(error){
+        return error; 
+    }
+}
+
+//=================================================================================================================================================
 startServer(app1,1,'Promise');
 startServer(app2,2,'Reactive Programmin (Observables)');
 startServer(app3,3,'Async Await');
