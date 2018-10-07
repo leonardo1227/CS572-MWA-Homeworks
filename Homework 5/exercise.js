@@ -11,19 +11,8 @@ const app2 = express();
 const app3 = express();
 const subject = new Subject();
 
-const urlToFetchData = 'http://jsonplaceholder.typicode.com/users/';
+const urlToFetchData = 'http://jsonplaceholder.typicode.com/users';
 const urlUserRequests = '/users';
-
-
-const promiseExternalDataRequest = (urlDataRequest) =>{
-    return new Promise((resolve,reject)=>{
-        if(urlDataRequest){
-            resolve(axios.get(urlDataRequest));
-        }else{
-            reject('There is not URL for fetching data');
-        }
-    });
-} 
 
 const initialServerConfiguration = (serverApp,port)=>{
     serverApp.set('port',port);
@@ -37,12 +26,20 @@ const startServer = (serverApp,number,description) =>{
     serverApp.listen(serverApp.get('port'), () => console.log(`The server ${number} is running ${serverApp.get('port')} (${description})`));
 }
 
+const promiseExternalDataRequest = (urlDataRequest) =>{
+    return new Promise((resolve,reject)=>{
+        if(urlDataRequest){
+            resolve(axios.get(urlDataRequest));
+        }else{
+            reject('There is not URL for fetching data');
+        }
+    });
+} 
+
 const writesResponse = (data => {
     if(data.fetchedData){
         data.response.json(data.fetchedData);
         data.response.end();
-    }else{
-        // data.response.
     }
 });
 
@@ -52,6 +49,7 @@ const writesResponse = (data => {
 initialServerConfiguration(app1,1000);
 
 app1.get(urlUserRequests, (request,response) =>{
+    console.log('[SERVER 1] -> Receiving request...');
       promiseExternalDataRequest(urlToFetchData)
         .then(data =>{
             writesResponse({resquest:request,
@@ -63,18 +61,21 @@ app1.get(urlUserRequests, (request,response) =>{
                 response:response,
                 error:err});
         });
+        console.log('[SERVER 1] -> End of GET request reached');
 });
 //==================================================================================================================================================
 //Server 2
 initialServerConfiguration(app2,2000);
 
 app2.get(urlUserRequests, (request,response) =>{
+    console.log('[SERVER 2] -> Receiving request...');
     subject.next({request:request,
         response:response});
-
+        console.log('[SERVER 2] -> End of GET request reached');
 });
 
-const writesResponseObservable = (data) =>{
+const writesResponseObserver = (data) =>{
+    console.log('[SERVER 2] -> Observer started');
     axios.get(urlToFetchData)
         .then(externalResponse =>{
             writesResponse({request:data.request,
@@ -86,15 +87,17 @@ const writesResponseObservable = (data) =>{
                 response:response,
                 error:err});
         });
+        console.log('[SERVER 2] -> Observer finish');
 };
 
-subject.subscribe(writesResponseObservable);
+subject.subscribe(writesResponseObserver);
 
 //===================================================================================================================================================
 //Server 3
 initialServerConfiguration(app3,3000);
 
 app3.get(urlUserRequests, (request,response) =>{
+    console.log('[SERVER 3] -> Receiving request...');
     writesResponseAsyncAwait()
         .then(data =>{
             writesResponse({resquest:request,
@@ -106,9 +109,11 @@ app3.get(urlUserRequests, (request,response) =>{
                 response:response,
                 error:err});
         });
+        console.log('[SERVER 3] -> End of GET request reached');
 });
 
 const writesResponseAsyncAwait = async function () {
+    console.log('[SERVER 3] -> Async Await Started');
     try{
         return promiseExternalDataRequest(urlToFetchData);
     }catch(error){
@@ -118,5 +123,5 @@ const writesResponseAsyncAwait = async function () {
 
 //=================================================================================================================================================
 startServer(app1,1,'Promise');
-startServer(app2,2,'Reactive Programmin (Observables)');
+startServer(app2,2,'Reactive Programming (Observables)');
 startServer(app3,3,'Async Await');
