@@ -4,9 +4,12 @@
 //Assignment 5
 const express = require('express');
 const axios = require('axios');
+const {Subject} = require('rxjs');
+
 const app1 = express();
 const app2 = express();
 const app3 = express();
+const subject = new Subject();
 
 const urlToFetchData = 'http://jsonplaceholder.typicode.com/users/';
 const urlUserRequests = '/users';
@@ -28,6 +31,10 @@ const initialServerConfiguration = (serverApp,port)=>{
     serverApp.enable('trust proxy');
     serverApp.enable('case sensitive rounting');
     serverApp.enable('strict routing');
+}
+
+const startServer = (serverApp,number,description) =>{
+    serverApp.listen(serverApp.get('port'), () => console.log(`The server ${number} is running ${serverApp.get('port')} (${description})`));
 }
 
 const writesResponse = (data => {
@@ -60,13 +67,33 @@ app1.get(urlUserRequests, (request,response) =>{
 
 //Server 2
 initialServerConfiguration(app2,2000);
+app2.get(urlUserRequests, (request,response) =>{
+    subject.next({request:request,
+        response:response});
+
+});
+
+const writesResponseObservable = (data) =>{
+    axios.get(urlToFetchData)
+        .then(externalResponse =>{
+            writesResponse({request:data.request,
+                response:data.response,
+                fetchedData:externalResponse.data});
+        })
+        .catch(err =>{
+            writesResponse({request:request,
+                response:response,
+                error:err});
+        });
+};
+
+subject.subscribe(writesResponseObservable);
 
 
 //Server 3
 initialServerConfiguration(app3,3000);
 
 
-
-app1.listen(app1.get('port'), () => console.log(`The server 1 is running ${app1.get('port')} (Promise)`));
-app2.listen(app2.get('port'), () => console.log(`The server 1 is running ${app2.get('port')} (Reactive Programming(Observables))`));
-app2.listen(app3.get('port'), () => console.log(`The server 1 is running ${app3.get('port')} (Asyn Await)`));
+startServer(app1,1,'Promise');
+startServer(app2,2,'Reactive Programmin (Observables)');
+startServer(app3,3,'Async Await');
