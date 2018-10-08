@@ -15,14 +15,14 @@ app.use(express.json());
 
 let grades = [];
 
-grades.push({id:1,
-    name:'Leonardo',
-    course:'CS572',
-    grade:'A'});
-grades.push({id:2,
-        name:'Leonardo',
-        course:'CS472',
-        grade:'A'});
+// grades.push({id:1,
+//     name:'Leonardo',
+//     course:'CS572',
+//     grade:'A'});
+// grades.push({id:2,
+//         name:'Leonardo',
+//         course:'CS472',
+//         grade:'A'});
 
 
 app.get('/grades',(request,response,next)=>{
