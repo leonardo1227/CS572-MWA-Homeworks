@@ -10,8 +10,8 @@ const {Subject} = require('rxjs');
 const app = express();
 app.set('port',1000);
 
-const dbInfo = {url:'mongodb://127.0.0.1:27017/local',
-                dbName:'myDB',
+const dbInfo = {url:'mongodb://127.0.0.1:27017/',
+                name:'myDB',
                 configurations:{useNewUrlParser:true}};
 const cryptoInfo = {algorithm:'aes256',
                     password:'asaadsaad'};
@@ -22,7 +22,7 @@ const dbDataRetriver = new Subject();
 const decrypter = new Subject();
 const responseWriter = new Subject();
 
-app.get('/secret',(request,response)=>{
+app.get('/secret',(request,response,next)=>{
     dbDataRetriver.next({request:request,
                     response:response});
 });
@@ -30,7 +30,7 @@ app.get('/secret',(request,response)=>{
 dbDataRetriver.subscribe(data =>{
     mongoClient.connect(dbInfo.url, dbInfo.configurations, (err,client)=>{
         if(err) throw err;
-        let dbconnection = client.db(dbInfo.dbName);
+        let dbconnection = client.db(dbInfo.name);
         dbconnection.collection('homework7').findOne({},{projection:{_id:0}},(err,doc)=>{
             if(err) throw err;
             data.message=doc.message;
