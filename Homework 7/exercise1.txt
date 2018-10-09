@@ -1,0 +1,14 @@
+//Student: Leonardo Samuel Tolosa Contreras
+//Student ID: 986527
+//Course: CS572-Modern Web Applications (MUM)
+//Assignment 7
+
+
+{
+    ISBNNumber:'',
+    title:'',
+    authors:['','',''],
+    keywords:['','',''],
+    borrowings:[{studentID:'', studentName:'', studentEmail:'', studentPhoneNumber:'', borrowingDate:'', returningDate:''},
+                {studentID:'', studentName:'', studentEmail:'', studentPhoneNumber:'', borrowingDate:'', returningDate:''}]
+}
