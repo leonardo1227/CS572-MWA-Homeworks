@@ -1,0 +1,24 @@
+//Student: Leonardo Samuel Tolosa Contreras
+//Student ID: 986527
+//Course: CS572-Modern Web Applications (MUM)
+//Assignment 8
+
+We can improve the performance in queries creating some indexes. It will decreasing the response time when executing queries.
+My suggestion for indexes would be the following of the following schema. In that case I would create one regular index for 
+the keyvalue ISBNNumber, and more 3 multikey indexes for authors, keywords, and borrowings key values.
+
+
+
+{
+    ISBNNumber:'',
+    title:'',
+    authors:['','',''],
+    keywords:['','',''],
+    borrowings:[{studentID:'', studentName:'', studentEmail:'', studentPhoneNumber:'', borrowingDate:'', returningDate:''},
+                {studentID:'', studentName:'', studentEmail:'', studentPhoneNumber:'', borrowingDate:'', returningDate:''}]
+}
+
+db.books.createIndex({ISBNNumber:1});
+db.books.createIndex({borrowings:1});
+db.books.createIndex({keywords:1});
+db.books.createIndex({authors:1});

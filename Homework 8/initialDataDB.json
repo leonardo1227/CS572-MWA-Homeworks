@@ -1,0 +1,71 @@
+[
+	{
+		"_id":1,
+		"name":"Dollar Tree",
+		"category":"Store",
+		"location":[-91.970125,41.007140]
+	},
+	{
+        "_id": 2,
+        "name": "Everybody's Whole Foods",
+        "category": "Food Store",
+        "location": [
+            -91.964626,
+            41.012631
+        ]
+    },
+    {
+        "_id": 3,
+        "name": "Hy-Vee",
+        "category": "Supermarket",
+        "location": [
+            -91.978209,
+            41.005118
+        ]
+    },
+    {
+        "_id": 4,
+        "name": "Walmart Supercenter",
+        "category": "Department Store",
+        "location": [
+            -91.993100,
+            41.008178
+        ]
+    },
+    {
+        "_id": 5,
+        "name": "McDonald's",
+        "category": "Fast Fodd Restaurant",
+        "location": [
+            -91.982822,
+            41.007482
+        ]
+    },
+    {
+        "_id": 6,
+        "name": "Burger King",
+        "category": "Fast Food Restaurant",
+        "location": [
+            -91.978209,
+            41.006640
+        ]
+    },
+    {
+        "_id": 7,
+        "name": "The Cider House",
+        "category": "Bar & Grill",
+        "location": [
+            -91.965321,
+            41.008593
+        ]
+    },
+    {
+        "_id": 8,
+        "name": "Fairfield Convention and Visitors Bereau",
+        "category": "Tourist Information Center",
+        "location": [
+            -91.964248,
+            41.009597
+        ]
+    }
+]
