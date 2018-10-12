@@ -1,0 +1,22 @@
+//Student: Leonardo Samuel Tolosa Contreras
+//Student ID: 986527
+//Course: CS572-Modern Web Applications (MUM)
+//Assignment 9
+
+1. Find all the zip codes in Iowa state.
+R: db.zips.aggregate([{$match:{state:'IA'}}])
+
+
+2. Find all the zip codes with a population less than 1000.
+R: db.zips.aggregate([{$match:{pop:{$lt:1000}}}])
+
+3. Find all the cities that have more than one zip code, sort the result based by state and city name
+R: db.zips.aggregate([{$group:{id_:{"state":"$state","city":"$city"},zipcodes:{$sum:1}}},
+                    {$match:{zipcodes:{$gt:1}}},
+                    {$sort:{state:1,city:1}}])
+
+4. Display the least populated city in each state.
+R: db.zips.aggregate([{$group:{_id:{state:"$state",city:"$city"},population:{$sum:"$pop"}}},
+                    {$sort:{state:1,population:1}},
+                    {$group:{_id:"$_id.state",city:{$first:"$_id>city"},population:{$first:"$population"}}},
+                    {$sort:{_id:1}}])
