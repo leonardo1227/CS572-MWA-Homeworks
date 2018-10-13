@@ -4,7 +4,7 @@
 //Assignment 10
 
 class Person{
-    _firstName:string="";
+    private _firstName:string="";
 
     get firstName(){
         return this._firstName;
