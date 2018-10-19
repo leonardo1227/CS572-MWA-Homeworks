@@ -9,13 +9,11 @@ import { Component } from '@angular/core';
               <a [routerLink]="['olympics']">Olympics</a>
             </div>
             <router-outlet></router-outlet>
-            `,
-  //styleUrls: ['./app.component.css']
+            `
 })
 export class AppComponent {
   title = 'myAngularApp';
   description='Homework 13th (CS572-MWA (2018 October\'s block))';
   student='Leonardo Samuel Tolosa Contreras';
   studentID='986527';
-
 }

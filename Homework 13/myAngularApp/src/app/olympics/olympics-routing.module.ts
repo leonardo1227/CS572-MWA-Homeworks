@@ -9,7 +9,6 @@ const routes: Routes = [
   {path:'games',component:GamesComponent, children:[
     {path:'game/:id', component:GameDetailsComponent, canActivate:[GameGuardGuard]}
   ]}
-  //,{path:'game/:id', component:GameDetailsComponent}
 ];
 
 @NgModule({

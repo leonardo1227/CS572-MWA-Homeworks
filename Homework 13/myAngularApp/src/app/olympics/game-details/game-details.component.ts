@@ -17,7 +17,6 @@ export class GameDetailsComponent implements OnInit {
    }
 
   ngOnInit() {
-    console.log(this.game)
   }
 
 
