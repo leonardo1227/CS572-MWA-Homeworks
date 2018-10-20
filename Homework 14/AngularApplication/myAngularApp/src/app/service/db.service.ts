@@ -11,10 +11,14 @@ export class DbService {
 
   verifyEmailUniqueEmitter = new EventEmitter();
   verifyEmailUnique(email) {
+    console.log('Veryfin...')
     let url = 'http://localhost:1000/verifyemail/' + email;
-    this.extRequest.makeGetRequest(url).subscribe(
-      response => this.verifyEmailUniqueEmitter.emit(response),
+    let subscription = this.extRequest.makeGetRequest(url).subscribe(
+      response => {
+        this.verifyEmailUniqueEmitter.emit(response)
+        subscription.unsubscribe()
+      },
       err => console.error(err)
-    ).unsubscribe();
+    );
   }
 }

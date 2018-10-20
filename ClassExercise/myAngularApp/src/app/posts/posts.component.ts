@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DataService } from '../service/data.service';
 
 @Component({
@@ -10,18 +10,19 @@ import { DataService } from '../service/data.service';
   //styleUrls: ['./posts.component.css']
 })
 export class PostsComponent implements OnInit {
-  posts;
-  constructor(private dataService:DataService) { 
-    this.dataService.getPosts().subscribe(
-      response => {
-        this.posts = response;
-        console.log(this.posts)
-      },
-      error => {
-        console.error(error);
-      }
-    );
-  }
+  @Input('content')posts;
+  
+  // constructor(private dataService:DataService) { 
+    // this.dataService.getPosts().subscribe(
+    //   response => {
+    //     this.posts = response;
+    //     console.log(this.posts)
+    //   },
+    //   error => {
+    //     console.error(error);
+    //   }
+    // );
+  // }
 
   ngOnInit() {
   }
