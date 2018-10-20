@@ -5,10 +5,12 @@ import { GameDetailsComponent } from './game-details/game-details.component';
 import { GameGuardGuard } from './game-guard.guard';
 
 const routes: Routes = [
-  {path:'',redirectTo:'/olympics/games',pathMatch:'full'},
-  {path:'games',component:GamesComponent, children:[
-    {path:'game/:id', component:GameDetailsComponent, canActivate:[GameGuardGuard]}
-  ]}
+  { path: '', redirectTo: '/olympics/games', pathMatch: 'full' },
+  {
+    path: 'games', component: GamesComponent, children: [
+      { path: 'game/:id', component: GameDetailsComponent, canActivate: [GameGuardGuard] }
+    ]
+  }
 ];
 
 @NgModule({
